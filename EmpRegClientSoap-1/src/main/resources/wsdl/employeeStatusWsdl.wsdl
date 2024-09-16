@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://example.com/xml/employer" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.howtodoinjava.com/xml/school" targetNamespace="http://www.howtodoinjava.com/xml/school">
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://example.com/xml/employer" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://example.com/xml/employer">
+
+    <xs:element name="RegisterEmployeeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="position" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="RegisterEmployeeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="RegisterEmployeeResponse">
+    <wsdl:part element="sch:RegisterEmployeeResponse" name="RegisterEmployeeResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegisterEmployeeRequest">
+    <wsdl:part element="sch:RegisterEmployeeRequest" name="RegisterEmployeeRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EmployeePort">
+    <wsdl:operation name="RegisterEmployee">
+      <wsdl:input message="tns:RegisterEmployeeRequest" name="RegisterEmployeeRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:RegisterEmployeeResponse" name="RegisterEmployeeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EmployeePortSoap11" type="tns:EmployeePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="RegisterEmployee">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="RegisterEmployeeRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RegisterEmployeeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmployeePortService">
+    <wsdl:port binding="tns:EmployeePortSoap11" name="EmployeePortSoap11">
+      <soap:address location="http://localhost:8080/ws/employee-status"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
